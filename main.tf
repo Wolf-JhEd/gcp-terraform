@@ -29,3 +29,13 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = "true"
 }
 
+
+#Este recurso intenta ser la fuente autorizada en todas las API habilitadas, 
+#lo que a menudo genera conflictos cuando ciertas acciones habilitan otras API. 
+#Si no necesita asegurarse de que esté habilitado exclusivamente un conjunto particular de API, 
+#lo más probable es que use el recurso google_project_service, un recurso por API.
+#Habilitar cloud resource manager  
+resource "google_project_services" "my_project" {
+  project = "gcp-script-terra"
+  services   = ["iam.googleapis.com", "cloudresourcemanager.googleapis.com"]
+}
